@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@source "../views";
+@source "../js";
+
+@import "@toast-ui/editor/dist/toastui-editor.css";
+
+/* Loading bar animations */
+@keyframes loading-progress {
+    0% { transform: scaleX(0); }
+    50% { transform: scaleX(0.7); }
+    100% { transform: scaleX(1); }
+}
+
+.animate-progress {
+    transform-origin: 0 50%;
+    animation: loading-progress 1.5s ease-in-out infinite;
+}
