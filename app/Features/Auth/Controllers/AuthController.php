@@ -21,6 +21,12 @@ class AuthController extends Controller
 
     public function storeLogin(Request $request, LoginUserAction $action): RedirectResponse
     {
+        $loginValue = $request->input('login') 
+            ?? $request->input('username') 
+            ?? $request->input('email');
+
+        $request->merge(['login' => $loginValue]);
+
         $request->validate([
             'login' => ['required', 'string'],
             'password' => ['required', 'string'],
@@ -31,7 +37,7 @@ class AuthController extends Controller
         ]);
 
         $success = $action->execute(
-            login: (string) $request->input('login'),
+            login: (string) $loginValue,
             password: (string) $request->input('password'),
             remember: (bool) $request->boolean('remember')
         );
@@ -39,8 +45,11 @@ class AuthController extends Controller
         if (! $success) {
             throw ValidationException::withMessages([
                 'login' => ['Kredensial yang diberikan tidak cocok dengan data kami.'],
+                'username' => ['Kredensial yang diberikan tidak cocok dengan data kami.'],
             ]);
         }
+
+        $request->session()->regenerate();
 
         $user = Auth::user();
         if ($user && $user->isAdmin()) {

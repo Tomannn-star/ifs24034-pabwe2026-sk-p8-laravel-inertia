@@ -37,7 +37,7 @@ export default function Login() {
                         {/* Username or Email Input */}
                         <div>
                             <label
-                                htmlFor="login-username"
+                                htmlFor="username"
                                 className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
                             >
                                 Username atau Email
@@ -47,12 +47,14 @@ export default function Login() {
                                     <User className="w-4 h-4" />
                                 </div>
                                 <input
-                                    id="login-username"
+                                    id="username"
+                                    name="username"
+                                    autoComplete="username"
                                     type="text"
                                     value={data.login}
                                     onChange={(e) => setData('login', e.target.value)}
                                     className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 transition ${
-                                        errors.login
+                                        errors.login || errors.username
                                             ? 'border-rose-400 focus:ring-rose-200 text-rose-900'
                                             : 'border-slate-300 focus:ring-blue-200 focus:border-blue-600 text-slate-900'
                                     }`}
@@ -61,15 +63,15 @@ export default function Login() {
                                     autoFocus
                                 />
                             </div>
-                            {errors.login && (
-                                <p className="text-xs text-rose-600 mt-1.5 font-medium">{errors.login}</p>
+                            {(errors.login || errors.username) && (
+                                <p className="text-xs text-rose-600 mt-1.5 font-medium">{errors.login || errors.username}</p>
                             )}
                         </div>
 
                         {/* Password Input */}
                         <div>
                             <label
-                                htmlFor="login-password"
+                                htmlFor="password"
                                 className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
                             >
                                 Kata Sandi
@@ -79,7 +81,9 @@ export default function Login() {
                                     <Lock className="w-4 h-4" />
                                 </div>
                                 <input
-                                    id="login-password"
+                                    id="password"
+                                    name="password"
+                                    autoComplete="current-password"
                                     type="password"
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
