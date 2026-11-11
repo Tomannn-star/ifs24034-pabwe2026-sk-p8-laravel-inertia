@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PostRepository implements PostRepositoryInterface
 {
-    protected function likeOperator(): string
+    private function likeOperator(): string
     {
         return DB::connection()->getDriverName() === 'pgsql' ? 'ilike' : 'like';
     }
@@ -18,13 +18,13 @@ class PostRepository implements PostRepositoryInterface
     public function getPublishedPosts(?string $search = null, ?string $category = null, int $perPage = 9): LengthAwarePaginator
     {
         $query = Post::query()->with('user')->where('is_published', true);
-        $op = $this->likeOperator();
 
         if ($search) {
-            $query->where(function ($q) use ($search, $op) {
-                $q->where('title', $op, "%{$search}%")
-                    ->orWhere('excerpt', $op, "%{$search}%")
-                    ->orWhere('content', $op, "%{$search}%");
+            $like = $this->likeOperator();
+            $query->where(function ($q) use ($search, $like) {
+                $q->where('title', $like, "%{$search}%")
+                    ->orWhere('excerpt', $like, "%{$search}%")
+                    ->orWhere('content', $like, "%{$search}%");
             });
         }
 
@@ -43,13 +43,13 @@ class PostRepository implements PostRepositoryInterface
     public function getUserPosts(int $userId, ?string $search = null, ?string $category = null, ?string $status = null, int $perPage = 10): LengthAwarePaginator
     {
         $query = Post::query()->where('user_id', $userId);
-        $op = $this->likeOperator();
 
         if ($search) {
-            $query->where(function ($q) use ($search, $op) {
-                $q->where('title', $op, "%{$search}%")
-                    ->orWhere('excerpt', $op, "%{$search}%")
-                    ->orWhere('content', $op, "%{$search}%");
+            $like = $this->likeOperator();
+            $query->where(function ($q) use ($search, $like) {
+                $q->where('title', $like, "%{$search}%")
+                    ->orWhere('excerpt', $like, "%{$search}%")
+                    ->orWhere('content', $like, "%{$search}%");
             });
         }
 
@@ -94,13 +94,12 @@ class PostRepository implements PostRepositoryInterface
             $query->where('user_id', $userId);
         }
 
-        $op = $this->likeOperator();
-
         if ($search) {
-            $query->where(function ($q) use ($search, $op) {
-                $q->where('title', $op, "%{$search}%")
-                    ->orWhere('excerpt', $op, "%{$search}%")
-                    ->orWhere('content', $op, "%{$search}%");
+            $like = $this->likeOperator();
+            $query->where(function ($q) use ($search, $like) {
+                $q->where('title', $like, "%{$search}%")
+                    ->orWhere('excerpt', $like, "%{$search}%")
+                    ->orWhere('content', $like, "%{$search}%");
             });
         }
 
@@ -148,3 +147,4 @@ class PostRepository implements PostRepositoryInterface
         return $query->latest()->get();
     }
 }
+

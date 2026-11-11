@@ -11,13 +11,13 @@ class AdminUserService
     public function getAllUsers(?string $search = null, ?string $role = null, int $perPage = 15): LengthAwarePaginator
     {
         $query = User::query()->withCount('posts');
-        $op = DB::connection()->getDriverName() === 'pgsql' ? 'ilike' : 'like';
+        $like = DB::connection()->getDriverName() === 'pgsql' ? 'ilike' : 'like';
 
         if ($search) {
-            $query->where(function ($q) use ($search, $op) {
-                $q->where('name', $op, "%{$search}%")
-                    ->orWhere('username', $op, "%{$search}%")
-                    ->orWhere('email', $op, "%{$search}%");
+            $query->where(function ($q) use ($search, $like) {
+                $q->where('name', $like, "%{$search}%")
+                    ->orWhere('username', $like, "%{$search}%")
+                    ->orWhere('email', $like, "%{$search}%");
             });
         }
 
@@ -45,3 +45,4 @@ class AdminUserService
         return (bool) $user->delete();
     }
 }
+
