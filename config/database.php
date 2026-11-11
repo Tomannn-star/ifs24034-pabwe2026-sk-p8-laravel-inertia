@@ -23,16 +23,16 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DB_URL', env('DATABASE_URL')),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'pabwe_p8_blog'),
-            'username' => env('DB_USERNAME', 'postgres'),
-            'password' => env('DB_PASSWORD', 'postgres'),
+            'host' => env('DB_HOST', env('PGHOST', '127.0.0.1')),
+            'port' => env('DB_PORT', env('PGPORT', '5432')),
+            'database' => env('DB_DATABASE', env('PGDATABASE', 'pabwe_p8_blog')),
+            'username' => env('DB_USERNAME', env('PGUSER', 'postgres')),
+            'password' => env('DB_PASSWORD', env('PGPASSWORD', 'postgres')),
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
-            'sslmode' => env('DB_SSLMODE', 'prefer'),
+            'sslmode' => env('DB_SSLMODE', env('PGSSLMODE', 'prefer')),
         ],
 
         'mysql' => [
