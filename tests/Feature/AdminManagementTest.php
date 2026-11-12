@@ -84,6 +84,11 @@ class AdminManagementTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertStringContainsString('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type') ?? '');
+
+        ob_start();
+        $response->sendContent();
+        $output = ob_get_clean();
+        $this->assertNotEmpty($output);
     }
 
     public function test_admin_can_view_all_posts_list_and_filter(): void
@@ -113,12 +118,20 @@ class AdminManagementTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertStringContainsString('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type') ?? '');
+
+        ob_start();
+        $response->sendContent();
+        $output = ob_get_clean();
+        $this->assertNotEmpty($output);
     }
 
     public function test_admin_user_service_methods(): void
     {
         $service = app(\App\Features\Admin\Services\AdminUserService::class);
         $user = User::factory()->create(['role' => 'member']);
+        $this->assertFalse($user->isAdmin());
+        $this->assertTrue($user->isMember());
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $user->posts());
 
         $found = $service->getUserById($user->id);
         $this->assertNotNull($found);

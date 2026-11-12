@@ -61,7 +61,7 @@ class PostManagementTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $cover = UploadedFile::fake()->image('cover.jpg', 800, 600);
+        $cover = UploadedFile::fake()->image('cover.png', 800, 600);
 
         $response = $this->actingAs($user)->post('/dashboard/posts', [
             'title' => 'Belajar Inertia.js dan React',
@@ -137,7 +137,7 @@ class PostManagementTest extends TestCase
         ]);
         Storage::disk('public')->put('covers/old_cover.jpg', 'old');
 
-        $newCover = UploadedFile::fake()->image('updated_cover.jpg', 600, 400);
+        $newCover = UploadedFile::fake()->image('updated_cover.png', 600, 400);
 
         $response = $this->actingAs($user)->put("/dashboard/posts/{$post->id}", [
             'title' => 'Judul Baru yang Diperbarui',
@@ -257,6 +257,11 @@ class PostManagementTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertStringContainsString('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type') ?? '');
+
+        ob_start();
+        $response->sendContent();
+        $output = ob_get_clean();
+        $this->assertNotEmpty($output);
     }
 
     public function test_member_can_import_posts_from_excel(): void
@@ -369,6 +374,29 @@ class PostManagementTest extends TestCase
             'title' => 'Hasil AI Dua',
             'category' => 'Umum',
             'is_published' => false,
+        ]);
+    }
+
+    public function test_ai_generate_endpoint_handles_exceptions_gracefully(): void
+    {
+        $user = User::factory()->create();
+
+        $mock = $this->createMock(\App\Features\Ai\Contracts\AiClientInterface::class);
+        $mock->expects($this->once())
+            ->method('generatePosts')
+            ->willThrowException(new \RuntimeException('Gagal memanggil API AI.'));
+
+        $this->app->instance(\App\Features\Ai\Contracts\AiClientInterface::class, $mock);
+
+        $response = $this->actingAs($user)->postJson('/dashboard/posts/ai-generate', [
+            'topic' => 'Kecerdasan Buatan',
+            'count' => 1,
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJson([
+            'success' => false,
+            'message' => 'Gagal memanggil API AI.',
         ]);
     }
 }
