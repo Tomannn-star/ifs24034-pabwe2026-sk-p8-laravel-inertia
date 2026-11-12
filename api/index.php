@@ -18,9 +18,9 @@ if (empty($_ENV['APP_ENV']) && !getenv('APP_ENV')) {
 }
 
 if (!isset($_ENV['APP_DEBUG']) && getenv('APP_DEBUG') === false) {
-    putenv('APP_DEBUG=true');
-    $_ENV['APP_DEBUG'] = 'true';
-    $_SERVER['APP_DEBUG'] = 'true';
+    putenv('APP_DEBUG=false');
+    $_ENV['APP_DEBUG'] = 'false';
+    $_SERVER['APP_DEBUG'] = 'false';
 }
 
 if (empty($_ENV['APP_KEY']) && !getenv('APP_KEY')) {
