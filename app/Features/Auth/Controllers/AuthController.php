@@ -49,8 +49,6 @@ class AuthController extends Controller
             ]);
         }
 
-        $request->session()->regenerate();
-
         $user = Auth::user();
         if ($user && $user->isAdmin()) {
             return redirect()->intended('/admin/posts');

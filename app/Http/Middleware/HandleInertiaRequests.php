@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'appName' => config('app.name', 'BlogVerse Pro'),
+            'csrf_token' => fn () => $request->hasSession() ? $request->session()->token() : csrf_token(),
             'auth' => [
                 'user' => $user ? [
                     'id' => $user->id,

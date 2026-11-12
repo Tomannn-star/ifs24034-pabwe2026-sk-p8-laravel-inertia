@@ -1,19 +1,11 @@
-import React from 'react';
-import { Head, Link, useForm } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import AppLayout from '../../Layouts/AppLayout';
 import { LogIn, Lock, User, ArrowLeft, Loader2 } from 'lucide-react';
 
 export default function Login() {
-    const { data, setData, post, processing, errors } = useForm({
-        login: '',
-        password: '',
-        remember: false,
-    });
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        post('/login');
-    };
+    const { csrf_token, errors = {} } = usePage().props;
+    const [processing, setProcessing] = useState(false);
 
     return (
         <AppLayout isPublic={true}>
@@ -33,7 +25,14 @@ export default function Login() {
                         </p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form
+                        action="/login"
+                        method="POST"
+                        onSubmit={() => setProcessing(true)}
+                        className="space-y-5"
+                    >
+                        <input type="hidden" name="_token" value={csrf_token || ''} />
+
                         {/* Username or Email Input */}
                         <div>
                             <label
@@ -51,8 +50,7 @@ export default function Login() {
                                     name="username"
                                     autoComplete="username"
                                     type="text"
-                                    value={data.login}
-                                    onChange={(e) => setData('login', e.target.value)}
+                                    defaultValue=""
                                     className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 transition ${
                                         errors.login || errors.username
                                             ? 'border-rose-400 focus:ring-rose-200 text-rose-900'
@@ -85,8 +83,7 @@ export default function Login() {
                                     name="password"
                                     autoComplete="current-password"
                                     type="password"
-                                    value={data.password}
-                                    onChange={(e) => setData('password', e.target.value)}
+                                    defaultValue=""
                                     className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 transition ${
                                         errors.password
                                             ? 'border-rose-400 focus:ring-rose-200 text-rose-900'
@@ -106,8 +103,8 @@ export default function Login() {
                             <label className="flex items-center gap-2 cursor-pointer">
                                 <input
                                     type="checkbox"
-                                    checked={data.remember}
-                                    onChange={(e) => setData('remember', e.target.checked)}
+                                    name="remember"
+                                    value="1"
                                     className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer"
                                 />
                                 <span className="text-slate-600">Ingat saya di perangkat ini</span>
@@ -118,8 +115,7 @@ export default function Login() {
                         <button
                             id="login-submit"
                             type="submit"
-                            disabled={processing}
-                            className="w-full py-3 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                            className="w-full py-3 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-2 cursor-pointer"
                         >
                             {processing ? (
                                 <>
