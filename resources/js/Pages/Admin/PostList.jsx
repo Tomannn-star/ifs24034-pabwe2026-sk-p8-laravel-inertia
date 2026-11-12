@@ -63,6 +63,7 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                         <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                         <input
                             type="text"
+                            aria-label="Cari artikel"
                             placeholder="Cari berdasarkan judul, cuplikan, atau konten..."
                             value={search}
                             onChange={(e) => {
@@ -76,6 +77,7 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                     <div className="flex items-center gap-2 w-full sm:w-auto">
                         <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">Kategori:</span>
                         <select
+                            aria-label="Filter kategori artikel"
                             value={category}
                             onChange={(e) => {
                                 setCategory(e.target.value);
@@ -84,11 +86,15 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                             className="w-full sm:w-auto px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-purple-600 font-medium text-slate-700 cursor-pointer"
                         >
                             <option value="Semua">Semua Kategori</option>
-                            {categories.map((cat) => (
-                                <option key={cat} value={cat}>
-                                    {cat}
-                                </option>
-                            ))}
+                            {categories.map((cat) => {
+                                const value = typeof cat === 'string' ? cat : cat.value;
+                                const label = typeof cat === 'string' ? cat : (cat.label || cat.value);
+                                return (
+                                    <option key={value} value={value}>
+                                        {label}
+                                    </option>
+                                );
+                            })}
                         </select>
                     </div>
                 </div>
@@ -166,7 +172,7 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
                                                     <Tag className="w-3 h-3 text-slate-400" />
-                                                    {post.category}
+                                                    {post.category?.value || post.category}
                                                 </span>
                                             </td>
 
