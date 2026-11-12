@@ -115,14 +115,18 @@ class PostRepository implements PostRepositoryInterface
      */
     public function getUserStats(int $userId): array
     {
-        $total = Post::where('user_id', $userId)->count();
-        $published = Post::where('user_id', $userId)->where('is_published', true)->count();
-        $draft = $total - $published;
+        $row = Post::query()
+            ->where('user_id', $userId)
+            ->selectRaw('COUNT(*) as total, COALESCE(SUM(CASE WHEN is_published THEN 1 ELSE 0 END), 0) as published')
+            ->first();
+
+        $total = (int) ($row->total ?? 0);
+        $published = (int) ($row->published ?? 0);
 
         return [
             'total' => $total,
             'published' => $published,
-            'draft' => $draft,
+            'draft' => max(0, $total - $published),
         ];
     }
 
