@@ -37,7 +37,7 @@ export default function Login() {
                         {/* Username or Email Input */}
                         <div>
                             <label
-                                htmlFor="username"
+                                htmlFor="login-username"
                                 className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
                             >
                                 Username atau Email
@@ -47,7 +47,7 @@ export default function Login() {
                                     <User className="w-4 h-4" />
                                 </div>
                                 <input
-                                    id="username"
+                                    id="login-username"
                                     name="username"
                                     autoComplete="username"
                                     type="text"
@@ -71,7 +71,7 @@ export default function Login() {
                         {/* Password Input */}
                         <div>
                             <label
-                                htmlFor="password"
+                                htmlFor="login-password"
                                 className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
                             >
                                 Kata Sandi
@@ -81,7 +81,7 @@ export default function Login() {
                                     <Lock className="w-4 h-4" />
                                 </div>
                                 <input
-                                    id="password"
+                                    id="login-password"
                                     name="password"
                                     autoComplete="current-password"
                                     type="password"
