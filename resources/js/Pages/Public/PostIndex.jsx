@@ -40,6 +40,9 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
         });
     };
 
+    const SectionHeading = isHome ? 'h2' : 'h1';
+    const CardHeading = isHome ? 'h3' : 'h2';
+
     return (
         <AppLayout isPublic={true}>
             <Head title={isHome ? 'Beranda - BlogVerse Pro' : 'Galeri Artikel - BlogVerse Pro'} />
@@ -92,10 +95,10 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
                 <div className="mb-10 space-y-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                            <SectionHeading className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                                 {isHome ? 'Artikel Pilihan Terbaru' : 'Jelajahi Galeri Artikel'}
-                            </h2>
-                            <p className="text-sm text-slate-500 mt-1">
+                            </SectionHeading>
+                            <p className="text-sm text-slate-600 mt-1">
                                 {isHome
                                     ? 'Tulisan segar yang baru saja dipublikasikan oleh para penulis'
                                     : 'Cari topik yang Anda minati atau saring berdasarkan kategori'}
@@ -105,11 +108,12 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
                         {/* Search Input Form */}
                         <form onSubmit={handleSearch} className="flex items-center gap-2 max-w-md w-full">
                             <div className="relative flex-1">
-                                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                                     <Search className="w-4 h-4" />
                                 </div>
                                 <input
                                     type="text"
+                                    aria-label="Cari judul atau isi artikel"
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     placeholder="Cari judul atau isi artikel..."
@@ -127,7 +131,7 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
 
                     {/* Category Filter Pills */}
                     <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1 flex items-center gap-1">
+                        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider shrink-0 mr-1 flex items-center gap-1">
                             <Tag className="w-3.5 h-3.5" />
                             <span>Kategori:</span>
                         </span>
@@ -179,9 +183,9 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
                                             className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-400 group-hover:from-blue-100 group-hover:to-indigo-100 transition">
-                                            <BookOpen className="w-10 h-10 mb-2 opacity-50" />
-                                            <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                                        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700 group-hover:from-blue-100 group-hover:to-indigo-100 transition">
+                                            <BookOpen className="w-10 h-10 mb-2 opacity-70" />
+                                            <span className="text-xs font-semibold uppercase tracking-widest text-slate-600">
                                                 {post.category?.value || post.category}
                                             </span>
                                         </div>
@@ -198,9 +202,9 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
                                 {/* Body */}
                                 <div className="p-6 flex-1 flex flex-col justify-between">
                                     <div className="space-y-3">
-                                        <div className="flex items-center gap-3 text-xs text-slate-400">
-                                            <span className="flex items-center gap-1 font-medium text-slate-600">
-                                                <User className="w-3.5 h-3.5 text-blue-500" />
+                                        <div className="flex items-center gap-3 text-xs text-slate-600">
+                                            <span className="flex items-center gap-1 font-medium text-slate-700">
+                                                <User className="w-3.5 h-3.5 text-blue-600" />
                                                 <span>{post.user ? post.user.name : 'Penulis'}</span>
                                             </span>
                                             <span>•</span>
@@ -218,11 +222,11 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
                                             </span>
                                         </div>
 
-                                        <h3 className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition leading-snug line-clamp-2">
+                                        <CardHeading className="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition leading-snug line-clamp-2">
                                             <Link href={`/articles/${post.slug}`} className="cursor-pointer">
                                                 {post.title}
                                             </Link>
-                                        </h3>
+                                        </CardHeading>
 
                                         <p className="text-sm text-slate-600 line-clamp-3 leading-relaxed">
                                             {post.excerpt || (post.content ? post.content.substring(0, 140) + '...' : '')}
@@ -247,9 +251,9 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
                         <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
                             <BookOpen className="w-7 h-7" />
                         </div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-1">
+                        <CardHeading className="text-lg font-bold text-slate-800 mb-1">
                             Belum Ada Artikel yang Sesuai
-                        </h3>
+                        </CardHeading>
                         <p className="text-sm text-slate-500 mb-6">
                             Tidak ditemukan artikel publik untuk pencarian atau kategori ini. Coba kata kunci lain atau reset filter.
                         </p>
@@ -280,7 +284,7 @@ export default function PostIndex({ posts, categories = [], filters = {}, isHome
                                         ? 'bg-blue-600 text-white shadow-xs'
                                         : link.url
                                         ? 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
-                                        : 'bg-slate-100 text-slate-400 cursor-not-allowed pointer-events-none'
+                                        : 'bg-slate-100 text-slate-600 cursor-not-allowed pointer-events-none'
                                 }`}
                             />
                         ))}

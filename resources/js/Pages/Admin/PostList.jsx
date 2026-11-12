@@ -50,7 +50,7 @@ export default function PostList({ posts, categories = [], filters = {} }) {
 
                     <a
                         href="/admin/posts/export"
-                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition cursor-pointer"
+                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm shadow-md hover:shadow-lg transition cursor-pointer"
                     >
                         <FileSpreadsheet className="w-4 h-4" />
                         <span>Ekspor Semua Artikel ke Excel</span>
@@ -131,10 +131,10 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                                                         </div>
                                                     )}
                                                     <div>
-                                                        <h3 className="font-bold text-slate-900 line-clamp-1 hover:text-purple-600 transition">
+                                                        <h2 className="text-sm font-bold text-slate-900 line-clamp-1 hover:text-purple-600 transition">
                                                             {post.title}
-                                                        </h3>
-                                                        <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                                                        </h2>
+                                                        <p className="text-xs text-slate-600 line-clamp-1 mt-0.5">
                                                             {post.excerpt || 'Tidak ada ringkasan.'}
                                                         </p>
                                                     </div>
@@ -159,13 +159,13 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                                                             <div className="font-semibold text-slate-800 text-xs">
                                                                 {post.user.name}
                                                             </div>
-                                                            <div className="text-[11px] text-slate-400">
+                                                            <div className="text-[11px] text-slate-600">
                                                                 @{post.user.username}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-xs text-slate-400 italic">Anonim</span>
+                                                    <span className="text-xs text-slate-600 italic">Anonim</span>
                                                 )}
                                             </td>
 
@@ -216,14 +216,14 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                                                         <ExternalLink className="w-3.5 h-3.5" />
                                                     </a>
                                                 ) : (
-                                                    <span className="text-xs text-slate-400 italic">Draf (Privat)</span>
+                                                    <span className="text-xs text-slate-600 italic">Draf (Privat)</span>
                                                 )}
                                             </td>
                                         </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="6" className="px-6 py-16 text-center text-slate-400">
+                                        <td colSpan="6" className="px-6 py-16 text-center text-slate-600">
                                             <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-30 text-purple-600" />
                                             <p className="font-semibold text-slate-600">Tidak ada artikel ditemukan</p>
                                             <p className="text-xs mt-1">Coba sesuaikan kata kunci pencarian atau kategori filter.</p>
@@ -251,7 +251,7 @@ export default function PostList({ posts, categories = [], filters = {} }) {
                                                 ? 'bg-purple-600 text-white shadow-xs'
                                                 : link.url
                                                 ? 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
-                                                : 'text-slate-300 pointer-events-none'
+                                                : 'text-slate-600 pointer-events-none'
                                         }`}
                                     />
                                 ))}

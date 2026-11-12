@@ -112,7 +112,7 @@ export default function Edit({ profile }) {
                     <form onSubmit={handleProfileSubmit} className="space-y-6">
                         {/* Profile Photo */}
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">
+                            <label htmlFor="profile-photo" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">
                                 Foto Profil
                             </label>
                             <div className="flex items-center gap-6">
@@ -131,6 +131,7 @@ export default function Edit({ profile }) {
 
                                     <button
                                         type="button"
+                                        aria-label="Ganti foto profil"
                                         onClick={() => fileInputRef.current?.click()}
                                         className="absolute bottom-0 right-0 p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-md transition cursor-pointer"
                                         title="Ganti Foto"
@@ -141,6 +142,7 @@ export default function Edit({ profile }) {
 
                                 <div className="space-y-2">
                                     <input
+                                        id="profile-photo"
                                         type="file"
                                         ref={fileInputRef}
                                         accept="image/*"
@@ -175,7 +177,7 @@ export default function Edit({ profile }) {
                                             File terpilih: {profileData.photo.name}
                                         </p>
                                     )}
-                                    <p className="text-[11px] text-slate-400">
+                                    <p className="text-[11px] text-slate-600">
                                         Format JPG, PNG, WEBP. Maksimal 2 MB.
                                     </p>
                                     {profileErrors.photo && (
@@ -187,12 +189,13 @@ export default function Edit({ profile }) {
 
                         {/* Full Name */}
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                            <label htmlFor="profile-name" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                                 Nama Lengkap
                             </label>
                             <div className="relative">
                                 <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                                 <input
+                                    id="profile-name"
                                     type="text"
                                     value={profileData.name}
                                     onChange={(e) => setProfileData('name', e.target.value)}
@@ -208,12 +211,13 @@ export default function Edit({ profile }) {
                         {/* Username & Email in Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                <label htmlFor="profile-username" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                                     Username
                                 </label>
                                 <div className="relative">
                                     <AtSign className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                                     <input
+                                        id="profile-username"
                                         type="text"
                                         value={profileData.username}
                                         onChange={(e) => setProfileData('username', e.target.value)}
@@ -227,12 +231,13 @@ export default function Edit({ profile }) {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                <label htmlFor="profile-email" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                                     Email
                                 </label>
                                 <div className="relative">
                                     <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                                     <input
+                                        id="profile-email"
                                         type="email"
                                         value={profileData.email}
                                         onChange={(e) => setProfileData('email', e.target.value)}
@@ -283,10 +288,11 @@ export default function Edit({ profile }) {
 
                     <form onSubmit={handlePasswordSubmit} className="space-y-4">
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                            <label htmlFor="current-password" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                                 Kata Sandi Saat Ini
                             </label>
                             <input
+                                id="current-password"
                                 type="password"
                                 value={passwordData.current_password}
                                 onChange={(e) => setPasswordData('current_password', e.target.value)}
@@ -301,10 +307,11 @@ export default function Edit({ profile }) {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                <label htmlFor="new-password" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                                     Kata Sandi Baru
                                 </label>
                                 <input
+                                    id="new-password"
                                     type="password"
                                     value={passwordData.password}
                                     onChange={(e) => setPasswordData('password', e.target.value)}
@@ -318,10 +325,11 @@ export default function Edit({ profile }) {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                <label htmlFor="new-password-confirmation" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                                     Konfirmasi Kata Sandi Baru
                                 </label>
                                 <input
+                                    id="new-password-confirmation"
                                     type="password"
                                     value={passwordData.password_confirmation}
                                     onChange={(e) => setPasswordData('password_confirmation', e.target.value)}

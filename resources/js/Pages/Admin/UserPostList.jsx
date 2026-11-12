@@ -74,7 +74,7 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
                             <p className="text-sm text-slate-500 mt-0.5">
                                 @{author.username} • {author.email}
                             </p>
-                            <span className="text-xs text-slate-400 mt-1 block">
+                            <span className="text-xs text-slate-600 mt-1 block">
                                 Monitoring karya tulis pengguna (Read-Only Admin)
                             </span>
                         </div>
@@ -94,7 +94,7 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Artikel</span>
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Total Artikel</span>
                             <div className="text-3xl font-black text-slate-900 mt-1">{stats?.total || 0}</div>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
@@ -104,7 +104,7 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
 
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Selesai (Published)</span>
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Total Selesai (Published)</span>
                             <div className="text-3xl font-black text-emerald-600 mt-1">{stats?.published || 0}</div>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
@@ -114,7 +114,7 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
 
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Belum Selesai (Draft)</span>
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Belum Selesai (Draft)</span>
                             <div className="text-3xl font-black text-amber-600 mt-1">{stats?.draft || 0}</div>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
@@ -132,6 +132,7 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
                             </div>
                             <input
                                 type="text"
+                                aria-label="Cari judul artikel penulis"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 onKeyDown={(e) => {
@@ -145,6 +146,7 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
                         </div>
 
                         <select
+                            aria-label="Filter status artikel penulis"
                             value={status}
                             onChange={(e) => {
                                 setStatus(e.target.value);
@@ -202,7 +204,7 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
                                             <td className="py-3.5 px-6 font-medium text-slate-900">
                                                 <div className="max-w-md">
                                                     <span className="font-bold block truncate">{post.title}</span>
-                                                    <span className="text-xs text-slate-400 font-mono block truncate mt-0.5">
+                                                    <span className="text-xs text-slate-600 font-mono block truncate mt-0.5">
                                                         /{post.slug}
                                                     </span>
                                                 </div>

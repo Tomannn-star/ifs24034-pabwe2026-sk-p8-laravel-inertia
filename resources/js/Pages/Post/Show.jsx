@@ -3,8 +3,6 @@ import { Head, Link, router, useForm } from '@inertiajs/react';
 import AppLayout from '../../Layouts/AppLayout';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import Editor from '@toast-ui/editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import {
     ArrowLeft,
     Calendar,
@@ -254,7 +252,12 @@ function EditPostModal({ post, categories = [], onClose }) {
     });
 
     useEffect(() => {
-        if (editorRef.current && !editorInstance.current) {
+        let cancelled = false;
+        Promise.all([
+            import('@toast-ui/editor'),
+            import('@toast-ui/editor/dist/toastui-editor.css'),
+        ]).then(([{ default: Editor }]) => {
+            if (cancelled || !editorRef.current || editorInstance.current) return;
             editorInstance.current = new Editor({
                 el: editorRef.current,
                 height: '100%',
@@ -269,9 +272,10 @@ function EditPostModal({ post, categories = [], onClose }) {
                     },
                 },
             });
-        }
+        });
 
         return () => {
+            cancelled = true;
             if (editorInstance.current) {
                 editorInstance.current.destroy();
                 editorInstance.current = null;

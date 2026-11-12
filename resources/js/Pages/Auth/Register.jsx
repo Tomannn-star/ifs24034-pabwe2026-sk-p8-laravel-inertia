@@ -38,7 +38,7 @@ export default function Register() {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Nama Lengkap */}
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            <label htmlFor="register-name" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Nama Lengkap
                             </label>
                             <div className="relative">
@@ -46,6 +46,7 @@ export default function Register() {
                                     <User className="w-4 h-4" />
                                 </div>
                                 <input
+                                    id="register-name"
                                     type="text"
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
@@ -66,7 +67,7 @@ export default function Register() {
 
                         {/* Username */}
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            <label htmlFor="register-username" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Username Unik
                             </label>
                             <div className="relative">
@@ -74,6 +75,7 @@ export default function Register() {
                                     <span className="font-bold text-sm">@</span>
                                 </div>
                                 <input
+                                    id="register-username"
                                     type="text"
                                     value={data.username}
                                     onChange={(e) => setData('username', e.target.value)}
@@ -93,7 +95,7 @@ export default function Register() {
 
                         {/* Email */}
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            <label htmlFor="register-email" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Alamat Email
                             </label>
                             <div className="relative">
@@ -101,6 +103,7 @@ export default function Register() {
                                     <Mail className="w-4 h-4" />
                                 </div>
                                 <input
+                                    id="register-email"
                                     type="email"
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
@@ -120,7 +123,7 @@ export default function Register() {
 
                         {/* Password */}
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            <label htmlFor="register-password" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Kata Sandi (Min. 6 Karakter)
                             </label>
                             <div className="relative">
@@ -128,6 +131,7 @@ export default function Register() {
                                     <Lock className="w-4 h-4" />
                                 </div>
                                 <input
+                                    id="register-password"
                                     type="password"
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
@@ -147,7 +151,7 @@ export default function Register() {
 
                         {/* Password Confirmation */}
                         <div>
-                            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            <label htmlFor="register-password-confirmation" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Konfirmasi Kata Sandi
                             </label>
                             <div className="relative">
@@ -155,6 +159,7 @@ export default function Register() {
                                     <Lock className="w-4 h-4" />
                                 </div>
                                 <input
+                                    id="register-password-confirmation"
                                     type="password"
                                     value={data.password_confirmation}
                                     onChange={(e) => setData('password_confirmation', e.target.value)}
@@ -198,7 +203,7 @@ export default function Register() {
                     <div className="mt-4 text-center">
                         <Link
                             href="/"
-                            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                            className="inline-flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-800 transition cursor-pointer"
                         >
                             <ArrowLeft className="w-3.5 h-3.5" />
                             <span>Kembali ke Beranda Publik</span>

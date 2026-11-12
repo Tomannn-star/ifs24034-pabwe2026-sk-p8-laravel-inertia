@@ -67,6 +67,7 @@ export default function UserList({ users, filters = {} }) {
                             </div>
                             <input
                                 type="text"
+                                aria-label="Cari pengguna"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Cari nama, username, atau email..."
@@ -75,6 +76,7 @@ export default function UserList({ users, filters = {} }) {
                         </div>
 
                         <select
+                            aria-label="Filter role pengguna"
                             value={role}
                             onChange={(e) => {
                                 setRole(e.target.value);
@@ -124,7 +126,7 @@ export default function UserList({ users, filters = {} }) {
                                                     </div>
                                                     <div>
                                                         <span className="font-bold block text-slate-900">{u.name}</span>
-                                                        <span className="text-xs text-slate-400">@{u.username}</span>
+                                                        <span className="text-xs text-slate-600">@{u.username}</span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -204,7 +206,7 @@ export default function UserList({ users, filters = {} }) {
                                                 ? 'bg-purple-600 text-white'
                                                 : link.url
                                                 ? 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
-                                                : 'text-slate-400 cursor-not-allowed pointer-events-none'
+                                                : 'text-slate-600 cursor-not-allowed pointer-events-none'
                                         }`}
                                     />
                                 ))}

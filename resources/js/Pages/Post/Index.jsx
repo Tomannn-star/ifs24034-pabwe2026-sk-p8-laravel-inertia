@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import AppLayout from '../../Layouts/AppLayout';
-import Editor from '@toast-ui/editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import {
     Plus,
     FileSpreadsheet,
@@ -131,13 +129,13 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                     {/* Total Artikel */}
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                                 Total Artikel
                             </span>
                             <div className="text-3xl font-black text-slate-900 mt-1">
                                 {stats?.total || 0}
                             </div>
-                            <span className="text-xs text-slate-500 mt-1 block">Seluruh karya tulis pribadi</span>
+                            <span className="text-xs text-slate-600 mt-1 block">Seluruh karya tulis pribadi</span>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
                             <BookOpen className="w-6 h-6" />
@@ -147,13 +145,13 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                     {/* Total Selesai (Published) */}
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                                 Total Selesai
                             </span>
                             <div className="text-3xl font-black text-emerald-600 mt-1">
                                 {stats?.published || 0}
                             </div>
-                            <span className="text-xs text-slate-500 mt-1 block">Artikel telah dipublikasikan</span>
+                            <span className="text-xs text-slate-600 mt-1 block">Artikel telah dipublikasikan</span>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
                             <CheckCircle2 className="w-6 h-6" />
@@ -163,13 +161,13 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                     {/* Belum Selesai (Draft) */}
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                                 Belum Selesai
                             </span>
                             <div className="text-3xl font-black text-amber-600 mt-1">
                                 {stats?.draft || 0}
                             </div>
-                            <span className="text-xs text-slate-500 mt-1 block">Masih dalam bentuk draf</span>
+                            <span className="text-xs text-slate-600 mt-1 block">Masih dalam bentuk draf</span>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
                             <XCircle className="w-6 h-6" />
@@ -187,6 +185,7 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                             </div>
                             <input
                                 type="text"
+                                aria-label="Cari judul artikel"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 onKeyDown={(e) => {
@@ -201,6 +200,7 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
 
                         {/* Category Dropdown */}
                         <select
+                            aria-label="Filter kategori artikel"
                             value={category}
                             onChange={(e) => {
                                 setCategory(e.target.value);
@@ -218,6 +218,7 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
 
                         {/* Status Dropdown */}
                         <select
+                            aria-label="Filter status artikel"
                             value={status}
                             onChange={(e) => {
                                 setStatus(e.target.value);
@@ -282,7 +283,7 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                                                     >
                                                         {post.title}
                                                     </Link>
-                                                    <span className="text-xs text-slate-400 font-mono block truncate mt-0.5">
+                                                    <span className="text-xs text-slate-600 font-mono block truncate mt-0.5">
                                                         /{post.slug}
                                                     </span>
                                                 </div>
@@ -331,11 +332,12 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                                                 <div className="inline-block text-left">
                                                     <button
                                                         type="button"
+                                                        aria-label="Menu tindakan artikel"
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             setActiveKebabId(activeKebabId === post.id ? null : post.id);
                                                         }}
-                                                        className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition cursor-pointer"
+                                                        className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer"
                                                         title="Menu Tindakan"
                                                     >
                                                         <MoreVertical className="w-4 h-4" />
@@ -450,7 +452,7 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                                                 ? 'bg-blue-600 text-white'
                                                 : link.url
                                                 ? 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
-                                                : 'text-slate-400 cursor-not-allowed pointer-events-none'
+                                                : 'text-slate-600 cursor-not-allowed pointer-events-none'
                                         }`}
                                     />
                                 ))}
@@ -521,7 +523,12 @@ function PostModalForm({ mode = 'create', post = null, categories = [], onClose 
     });
 
     useEffect(() => {
-        if (editorRef.current && !editorInstance.current) {
+        let cancelled = false;
+        Promise.all([
+            import('@toast-ui/editor'),
+            import('@toast-ui/editor/dist/toastui-editor.css'),
+        ]).then(([{ default: Editor }]) => {
+            if (cancelled || !editorRef.current || editorInstance.current) return;
             editorInstance.current = new Editor({
                 el: editorRef.current,
                 height: '100%',
@@ -536,9 +543,10 @@ function PostModalForm({ mode = 'create', post = null, categories = [], onClose 
                     },
                 },
             });
-        }
+        });
 
         return () => {
+            cancelled = true;
             if (editorInstance.current) {
                 editorInstance.current.destroy();
                 editorInstance.current = null;

@@ -144,7 +144,7 @@ export default function Login() {
                     <div className="mt-4 text-center">
                         <Link
                             href="/"
-                            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                            className="inline-flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-800 transition cursor-pointer"
                         >
                             <ArrowLeft className="w-3.5 h-3.5" />
                             <span>Kembali ke Beranda Publik</span>

@@ -185,6 +185,9 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
                         {/* Mobile menu button */}
                         <div className="flex md:hidden">
                             <button
+                                type="button"
+                                aria-label={mobileMenuOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+                                aria-expanded={mobileMenuOpen}
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                                 className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition cursor-pointer"
                             >
@@ -215,7 +218,7 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
                         {user ? (
                             <>
                                 <div className="border-t border-slate-200 pt-2 mt-2">
-                                    <div className="px-3 py-1 text-xs font-semibold text-slate-400 uppercase">
+                                    <div className="px-3 py-1 text-xs font-semibold text-slate-600 uppercase">
                                         Akun: {user.name} ({user.role})
                                     </div>
                                     <Link
@@ -323,9 +326,9 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
                         </div>
 
                         <div>
-                            <h4 className="text-white font-semibold text-sm mb-3 uppercase tracking-wider">
+                            <h2 className="text-white font-semibold text-sm mb-3 uppercase tracking-wider">
                                 Navigasi Publik
-                            </h4>
+                            </h2>
                             <ul className="space-y-2 text-sm">
                                 <li>
                                     <Link href="/" className="hover:text-blue-400 transition cursor-pointer">
@@ -351,10 +354,10 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
                         </div>
 
                         <div>
-                            <h4 className="text-white font-semibold text-sm mb-3 uppercase tracking-wider">
+                            <h2 className="text-white font-semibold text-sm mb-3 uppercase tracking-wider">
                                 Ruang Penulis
-                            </h4>
-                            <ul className="space-y-2 text-sm text-slate-400">
+                            </h2>
+                            <ul className="space-y-2 text-sm text-slate-300">
                                 <li>Editor Markdown Canggih</li>
                                 <li>Ekspor & Impor Data Excel</li>
                                 <li>Asisten AI Generator Draf</li>
@@ -363,9 +366,9 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
                         </div>
                     </div>
 
-                    <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-300 flex flex-col sm:flex-row justify-between items-center gap-4">
                         <p>© {new Date().getFullYear()} {appName || 'BlogVerse Pro'}. Hak Cipta Dilindungi.</p>
-                        <p className="text-slate-400">Praktikum 8 PABWE - Laravel 13, Inertia.js & React (Feature-First)</p>
+                        <p className="text-slate-300">Praktikum 8 PABWE - Laravel 13, Inertia.js & React (Feature-First)</p>
                     </div>
                 </div>
             </footer>
