@@ -89,16 +89,14 @@ if (empty($_ENV['DB_HOST']) && !getenv('DB_HOST') && !getenv('PGHOST')) {
     $_SERVER['DB_SSLMODE'] = 'require';
 }
 
-if (empty($_ENV['SESSION_DRIVER']) && !getenv('SESSION_DRIVER')) {
-    putenv('SESSION_DRIVER=database');
-    $_ENV['SESSION_DRIVER'] = 'database';
-    $_SERVER['SESSION_DRIVER'] = 'database';
-}
-if (empty($_ENV['CACHE_STORE']) && !getenv('CACHE_STORE')) {
-    putenv('CACHE_STORE=database');
-    $_ENV['CACHE_STORE'] = 'database';
-    $_SERVER['CACHE_STORE'] = 'database';
-}
+// Stateless Vercel serverless: avoid cross-request session/cache DB round-trips
+putenv('SESSION_DRIVER=cookie');
+$_ENV['SESSION_DRIVER'] = 'cookie';
+$_SERVER['SESSION_DRIVER'] = 'cookie';
+
+putenv('CACHE_STORE=array');
+$_ENV['CACHE_STORE'] = 'array';
+$_SERVER['CACHE_STORE'] = 'array';
 if (empty($_ENV['QUEUE_CONNECTION']) && !getenv('QUEUE_CONNECTION')) {
     putenv('QUEUE_CONNECTION=database');
     $_ENV['QUEUE_CONNECTION'] = 'database';

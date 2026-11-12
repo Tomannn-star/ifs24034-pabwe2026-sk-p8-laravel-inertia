@@ -2,6 +2,7 @@
   "version": 2,
   "framework": null,
   "outputDirectory": "dist",
+  "regions": ["sin1"],
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.8.0"
