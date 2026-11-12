@@ -148,12 +148,12 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                             <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                                 Total Selesai
                             </span>
-                            <div className="text-3xl font-black text-emerald-600 mt-1">
+                            <div className="text-3xl font-black text-emerald-700 mt-1">
                                 {stats?.published || 0}
                             </div>
                             <span className="text-xs text-slate-600 mt-1 block">Artikel telah dipublikasikan</span>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
                             <CheckCircle2 className="w-6 h-6" />
                         </div>
                     </div>
@@ -164,12 +164,12 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                             <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                                 Belum Selesai
                             </span>
-                            <div className="text-3xl font-black text-amber-600 mt-1">
+                            <div className="text-3xl font-black text-amber-700 mt-1">
                                 {stats?.draft || 0}
                             </div>
                             <span className="text-xs text-slate-600 mt-1 block">Masih dalam bentuk draf</span>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                        <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold">
                             <XCircle className="w-6 h-6" />
                         </div>
                     </div>
@@ -403,9 +403,9 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                                                                     handleDelete(post.id, post.title);
                                                                     setActiveKebabId(null);
                                                                 }}
-                                                                className="w-full text-left flex items-center gap-2.5 px-3.5 py-2 text-rose-600 hover:bg-rose-50 transition cursor-pointer font-bold"
+                                                                className="w-full text-left flex items-center gap-2.5 px-3.5 py-2 text-rose-700 hover:bg-rose-50 transition cursor-pointer font-bold"
                                                             >
-                                                                <Trash2 className="w-4 h-4 text-rose-600" />
+                                                                <Trash2 className="w-4 h-4 text-rose-700" />
                                                                 <span>Hapus Artikel</span>
                                                             </button>
                                                         </div>
@@ -419,9 +419,9 @@ export default function PostIndex({ posts, stats, categories = [], filters = {} 
                         </div>
                     ) : (
                         <div className="p-12 text-center">
-                            <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                            <h3 className="text-base font-bold text-slate-800">Belum Ada Artikel</h3>
-                            <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">
+                            <BookOpen className="w-12 h-12 text-slate-400 mx-auto mb-3" />
+                            <h2 className="text-base font-bold text-slate-800">Belum Ada Artikel</h2>
+                            <p className="text-sm text-slate-600 mt-1 max-w-sm mx-auto">
                                 Anda belum memiliki artikel atau tidak ada yang sesuai dengan kriteria filter saat ini.
                             </p>
                             <button

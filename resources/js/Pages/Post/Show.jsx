@@ -3,6 +3,7 @@ import { Head, Link, router, useForm } from '@inertiajs/react';
 import AppLayout from '../../Layouts/AppLayout';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { normalizeViewerHeadings } from '../../utils/markdown';
 import {
     ArrowLeft,
     Calendar,
@@ -30,6 +31,7 @@ export default function PostShow({ post, categories = [] }) {
                 el: viewerRef.current,
                 initialValue: post.content || '',
             });
+            normalizeViewerHeadings(viewerRef.current, 3);
         }
 
         return () => {
@@ -150,31 +152,31 @@ export default function PostShow({ post, categories = [] }) {
                         </p>
                     )}
 
-                    <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-100 text-xs text-slate-500">
+                    <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-100 text-xs text-slate-600">
                         <span className="flex items-center gap-1.5">
-                            <Calendar className="w-4 h-4 text-slate-400" />
+                            <Calendar className="w-4 h-4 text-slate-500" />
                             <span>Dibuat: {post.created_at}</span>
                         </span>
                         {post.published_at && (
-                            <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
+                            <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
                                 <CheckCircle2 className="w-4 h-4" />
                                 <span>Terbit: {post.published_at}</span>
                             </span>
                         )}
-                        <span className="font-mono text-slate-400">Slug: /{post.slug}</span>
+                        <span className="font-mono text-slate-600">Slug: /{post.slug}</span>
                     </div>
 
                     {/* Cover Image Section */}
                     <div className="pt-4 border-t border-slate-100">
                         <div className="flex items-center justify-between mb-3">
-                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                                 Foto Sampul (Cover Image)
                             </span>
                             <div className="flex gap-2">
                                 <button
                                     type="button"
                                     onClick={() => setIsUploadCoverOpen(true)}
-                                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 cursor-pointer"
+                                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-800 cursor-pointer"
                                 >
                                     <Upload className="w-3.5 h-3.5" />
                                     <span>{post.cover_url ? 'Ganti Sampul' : 'Unggah Sampul'}</span>
@@ -183,7 +185,7 @@ export default function PostShow({ post, categories = [] }) {
                                     <button
                                         type="button"
                                         onClick={handleDeleteCover}
-                                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 hover:text-rose-700 cursor-pointer ml-3"
+                                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-700 hover:text-rose-800 cursor-pointer ml-3"
                                     >
                                         <Trash2 className="w-3.5 h-3.5" />
                                         <span>Hapus Sampul</span>
@@ -201,7 +203,7 @@ export default function PostShow({ post, categories = [] }) {
                                 />
                             </div>
                         ) : (
-                            <div className="rounded-2xl p-8 bg-slate-50 border border-dashed border-slate-300 text-center text-slate-400 text-xs">
+                            <div className="rounded-2xl p-8 bg-slate-50 border border-dashed border-slate-300 text-center text-slate-600 text-xs">
                                 <Image className="w-8 h-8 mx-auto mb-2 opacity-50" />
                                 <span>Belum ada foto sampul untuk artikel ini.</span>
                             </div>
@@ -211,9 +213,9 @@ export default function PostShow({ post, categories = [] }) {
 
                 {/* Article Content Rendered with TOAST UI Viewer */}
                 <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-xs">
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">
+                    <h2 className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-6">
                         Pratinjau Konten Markdown
-                    </h3>
+                    </h2>
                     <div ref={viewerRef} className="toastui-editor-contents text-slate-800 leading-relaxed text-base" />
                 </div>
             </div>
@@ -311,6 +313,7 @@ function EditPostModal({ post, categories = [], onClose }) {
                 <button
                     type="button"
                     onClick={onClose}
+                    aria-label="Tutup modal edit artikel"
                     className="p-2 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition cursor-pointer"
                 >
                     <X className="w-6 h-6" />
@@ -320,25 +323,27 @@ function EditPostModal({ post, categories = [], onClose }) {
             {/* BODY */}
             <form id="edit-form-inner" onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-8 space-y-6 max-w-5xl mx-auto w-full">
                 <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    <label htmlFor="show-edit-title" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                         Judul Artikel *
                     </label>
                     <input
+                        id="show-edit-title"
                         type="text"
                         value={data.title}
                         onChange={(e) => setData('title', e.target.value)}
                         className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-base font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-200"
                         required
                     />
-                    {errors.title && <p className="text-xs text-rose-600 mt-1.5">{errors.title}</p>}
+                    {errors.title && <p className="text-xs text-rose-700 mt-1.5">{errors.title}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        <label htmlFor="show-edit-category" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                             Kategori *
                         </label>
                         <select
+                            id="show-edit-category"
                             value={data.category}
                             onChange={(e) => setData('category', e.target.value)}
                             className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-200 cursor-pointer"
@@ -353,15 +358,16 @@ function EditPostModal({ post, categories = [], onClose }) {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        <span className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                             Status Publikasi
-                        </label>
-                        <label className="flex items-center gap-3 p-2.5 bg-slate-50 border border-slate-300 rounded-xl cursor-pointer">
+                        </span>
+                        <label htmlFor="show-edit-published" className="flex items-center gap-3 p-2.5 bg-slate-50 border border-slate-300 rounded-xl cursor-pointer">
                             <input
+                                id="show-edit-published"
                                 type="checkbox"
                                 checked={data.is_published}
                                 onChange={(e) => setData('is_published', e.target.checked)}
-                                className="w-5 h-5 text-emerald-600 rounded border-slate-300 cursor-pointer"
+                                className="w-5 h-5 text-emerald-700 rounded border-slate-300 cursor-pointer"
                             />
                             <span className="font-bold text-sm text-slate-800">
                                 {data.is_published ? 'Dipublikasikan (Published)' : 'Sebagai Draf (Draft)'}
@@ -371,10 +377,11 @@ function EditPostModal({ post, categories = [], onClose }) {
                 </div>
 
                 <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    <label htmlFor="show-edit-excerpt" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                         Ringkasan (Excerpt)
                     </label>
                     <textarea
+                        id="show-edit-excerpt"
                         rows={2}
                         value={data.excerpt}
                         onChange={(e) => setData('excerpt', e.target.value)}
@@ -405,7 +412,7 @@ function EditPostModal({ post, categories = [], onClose }) {
                     type="submit"
                     form="edit-form-inner"
                     disabled={processing}
-                    className="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-700 shadow-md transition flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-emerald-700 hover:bg-emerald-800 shadow-md transition flex items-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                     {processing ? (
                         <>
@@ -440,26 +447,27 @@ function UploadCoverModal({ postId, onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
             <div className="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
                 <div className="px-6 py-4 bg-slate-800 text-white flex items-center justify-between">
-                    <h3 className="font-bold text-base">Unggah Foto Sampul</h3>
-                    <button onClick={onClose} className="p-1 rounded-lg hover:bg-white/10 text-white cursor-pointer">
+                    <h2 className="font-bold text-base">Unggah Foto Sampul</h2>
+                    <button type="button" onClick={onClose} aria-label="Tutup modal unggah sampul" className="p-1 rounded-lg hover:bg-white/10 text-white cursor-pointer">
                         <X className="w-5 h-5" />
                     </button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-600">
                         Format berkas harus berupa gambar (JPG, PNG, WebP) dengan ukuran maksimal 3 MB.
                     </p>
 
                     <div>
                         <input
                             type="file"
+                            aria-label="Pilih berkas foto sampul"
                             accept="image/*"
                             onChange={(e) => setData('cover_image', e.target.files[0])}
                             className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
                             required
                         />
-                        {errors.cover_image && <p className="text-xs text-rose-600 mt-1.5">{errors.cover_image}</p>}
+                        {errors.cover_image && <p className="text-xs text-rose-700 mt-1.5">{errors.cover_image}</p>}
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">

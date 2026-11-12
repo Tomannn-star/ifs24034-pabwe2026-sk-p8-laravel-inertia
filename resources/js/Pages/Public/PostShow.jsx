@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/react';
 import AppLayout from '../../Layouts/AppLayout';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { normalizeViewerHeadings } from '../../utils/markdown';
 import {
     ArrowLeft,
     Calendar,
@@ -25,6 +26,7 @@ export default function PostShow({ post }) {
                 el: viewerRef.current,
                 initialValue: post.content || '',
             });
+            normalizeViewerHeadings(viewerRef.current, 2);
         }
 
         return () => {

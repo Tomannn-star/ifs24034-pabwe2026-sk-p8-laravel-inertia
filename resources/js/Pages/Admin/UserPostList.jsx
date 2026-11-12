@@ -105,9 +105,9 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
                             <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Total Selesai (Published)</span>
-                            <div className="text-3xl font-black text-emerald-600 mt-1">{stats?.published || 0}</div>
+                            <div className="text-3xl font-black text-emerald-700 mt-1">{stats?.published || 0}</div>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
                             <CheckCircle2 className="w-6 h-6" />
                         </div>
                     </div>
@@ -115,9 +115,9 @@ export default function UserPostList({ author, posts, stats, filters = {} }) {
                     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex items-center justify-between">
                         <div>
                             <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Belum Selesai (Draft)</span>
-                            <div className="text-3xl font-black text-amber-600 mt-1">{stats?.draft || 0}</div>
+                            <div className="text-3xl font-black text-amber-700 mt-1">{stats?.draft || 0}</div>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                        <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold">
                             <XCircle className="w-6 h-6" />
                         </div>
                     </div>

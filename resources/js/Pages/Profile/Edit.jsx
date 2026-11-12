@@ -165,7 +165,7 @@ export default function Edit({ profile }) {
                                             <button
                                                 type="button"
                                                 onClick={handleDeletePhoto}
-                                                className="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+                                                className="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
                                             >
                                                 <Trash2 className="w-3.5 h-3.5" />
                                                 Hapus Foto
@@ -253,7 +253,7 @@ export default function Edit({ profile }) {
 
                         <div className="flex items-center justify-between pt-2">
                             {profileSuccess && (
-                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600">
+                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
                                     <CheckCircle2 className="w-4 h-4" />
                                     Profil berhasil diperbarui.
                                 </span>
@@ -342,7 +342,7 @@ export default function Edit({ profile }) {
 
                         <div className="flex items-center justify-between pt-2">
                             {passwordSuccess && (
-                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600">
+                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
                                     <CheckCircle2 className="w-4 h-4" />
                                     Kata sandi berhasil diperbarui.
                                 </span>

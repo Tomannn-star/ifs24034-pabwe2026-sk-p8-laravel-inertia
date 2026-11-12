@@ -154,7 +154,7 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
 
                                         <button
                                             onClick={handleLogout}
-                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-rose-600 hover:bg-rose-50 transition cursor-pointer"
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-rose-700 hover:bg-rose-50 transition cursor-pointer"
                                             title="Keluar"
                                         >
                                             <LogOut className="w-4 h-4" />
@@ -255,7 +255,7 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
                                     </Link>
                                     <button
                                         onClick={handleLogout}
-                                        className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-rose-600 hover:bg-rose-50 cursor-pointer"
+                                        className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-rose-700 hover:bg-rose-50 cursor-pointer"
                                     >
                                         Keluar
                                     </button>
@@ -319,7 +319,7 @@ export default function AppLayout({ children, isPublic = false, title = '' }) {
                                     {appName || 'BlogVerse Pro'}
                                 </span>
                             </div>
-                            <p className="text-slate-400 text-sm max-w-md leading-relaxed">
+                            <p className="text-slate-300 text-sm max-w-md leading-relaxed">
                                 Platform publikasi artikel digital multi-tier modern dengan Clean Architecture.
                                 Wadah berbagi ide, wawasan teknologi, tutorial, bisnis, dan opini bermutu tinggi.
                             </p>
