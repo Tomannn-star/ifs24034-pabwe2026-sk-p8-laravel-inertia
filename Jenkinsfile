@@ -323,6 +323,18 @@ pipeline {
                         --skip-dirs coverage-html \
                         --skip-dirs storage \
                         --skip-dirs bootstrap/cache \
+                        --format table \
+                        . || true
+
+                    trivy fs \
+                        --cache-dir .trivy-cache \
+                        --scanners vuln \
+                        --severity HIGH,CRITICAL \
+                        --skip-dirs vendor \
+                        --skip-dirs node_modules \
+                        --skip-dirs coverage-html \
+                        --skip-dirs storage \
+                        --skip-dirs bootstrap/cache \
                         --format sarif \
                         --output trivy-results.sarif \
                         --exit-code 1 \
