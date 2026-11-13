@@ -41,6 +41,23 @@ class AuthTest extends TestCase
         $response->assertRedirect('/dashboard/posts');
     }
 
+    public function test_admin_user_authenticates_and_redirects_to_admin_posts(): void
+    {
+        $admin = User::factory()->create([
+            'username' => 'superadmin',
+            'role' => 'admin',
+            'password' => Hash::make('adminsecret'),
+        ]);
+
+        $response = $this->post('/login', [
+            'login' => 'superadmin',
+            'password' => 'adminsecret',
+        ]);
+
+        $this->assertAuthenticatedAs($admin);
+        $response->assertRedirect('/admin/posts');
+    }
+
     public function test_users_can_authenticate_using_email(): void
     {
         $user = User::factory()->create([

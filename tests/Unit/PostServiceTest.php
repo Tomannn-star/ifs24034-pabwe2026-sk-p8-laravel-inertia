@@ -38,6 +38,31 @@ class PostServiceTest extends TestCase
         $this->assertNotNull($post->published_at);
     }
 
+    public function test_update_post_auto_generates_excerpt_when_empty_and_retains_published_at(): void
+    {
+        $user = User::factory()->create();
+        $service = app(PostService::class);
+
+        $originalPublishedAt = now()->subDays(5);
+        $post = Post::factory()->create([
+            'user_id' => $user->id,
+            'title' => 'Artikel Kosong Cuplikan',
+            'excerpt' => null,
+            'content' => '',
+            'is_published' => true,
+            'published_at' => $originalPublishedAt,
+        ]);
+
+        $updated = $service->updatePost($post, [
+            'content' => '<p>Konten baru diperbarui untuk cuplikan otomatis.</p>',
+            'is_published' => true,
+        ]);
+
+        $this->assertNotNull($updated->excerpt);
+        $this->assertStringContainsString('Konten baru diperbarui', $updated->excerpt);
+        $this->assertSame($originalPublishedAt->toDateTimeString(), $updated->published_at->toDateTimeString());
+    }
+
     public function test_update_post_with_new_title_and_cover_replacement(): void
     {
         $user = User::factory()->create();

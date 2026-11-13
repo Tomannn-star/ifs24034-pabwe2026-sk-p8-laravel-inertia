@@ -55,6 +55,10 @@ class PostManagementTest extends TestCase
 
         $responseDrafts = $this->actingAs($user)->get('/dashboard/posts?status=draft');
         $responseDrafts->assertStatus(200);
+
+        // Test /dashboard redirect/route
+        $responseDashboard = $this->actingAs($user)->get('/dashboard');
+        $responseDashboard->assertStatus(200);
     }
 
     public function test_member_can_create_post_with_cover_and_publish(): void
@@ -347,6 +351,7 @@ class PostManagementTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('/dashboard/posts/ai-save', [
+            'is_published' => true,
             'posts' => [
                 [
                     'title' => 'Hasil AI Satu',
@@ -367,13 +372,13 @@ class PostManagementTest extends TestCase
             'user_id' => $user->id,
             'title' => 'Hasil AI Satu',
             'category' => 'Pendidikan',
-            'is_published' => false,
+            'is_published' => true,
         ]);
         $this->assertDatabaseHas('posts', [
             'user_id' => $user->id,
             'title' => 'Hasil AI Dua',
             'category' => 'Umum',
-            'is_published' => false,
+            'is_published' => true,
         ]);
     }
 

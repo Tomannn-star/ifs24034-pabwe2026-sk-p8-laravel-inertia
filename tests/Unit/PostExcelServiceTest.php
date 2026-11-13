@@ -45,8 +45,17 @@ class PostExcelServiceTest extends TestCase
             'published_at' => null,
         ]);
 
+        $postWithoutUser = new Post([
+            'title' => 'Artikel Anonim',
+            'category' => 'Umum',
+            'excerpt' => 'Tanpa user',
+            'content' => 'Konten anonim',
+            'is_published' => false,
+            'published_at' => null,
+        ]);
+
         $service = app(PostExcelService::class);
-        $response = $service->export([$post1, $post2], 'uji-export.xlsx');
+        $response = $service->export([$post1, $post2, $postWithoutUser], 'uji-export.xlsx');
 
         $this->assertInstanceOf(StreamedResponse::class, $response);
         $this->assertSame('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type'));

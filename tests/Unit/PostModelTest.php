@@ -45,5 +45,14 @@ class PostModelTest extends TestCase
         // Scope published
         $publishedCount = Post::published()->count();
         $this->assertSame(1, $publishedCount);
+
+        // Factory and casts
+        $factory = Post::newFactory();
+        $this->assertInstanceOf(\Database\Factories\PostFactory::class, $factory);
+
+        $casts = $post->getCasts();
+        $this->assertArrayHasKey('is_published', $casts);
+        $this->assertArrayHasKey('published_at', $casts);
+        $this->assertArrayHasKey('category', $casts);
     }
 }

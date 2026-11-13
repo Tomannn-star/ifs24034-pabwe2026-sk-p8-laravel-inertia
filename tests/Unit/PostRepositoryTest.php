@@ -123,5 +123,10 @@ class PostRepositoryTest extends TestCase
         $deleted = $repo->delete($post1);
         $this->assertTrue($deleted);
         $this->assertNull($repo->findById($post1->id));
+
+        // likeOperator reflection check
+        $ref = new \ReflectionMethod($repo, 'likeOperator');
+        $ref->setAccessible(true);
+        $this->assertSame('like', $ref->invoke($repo));
     }
 }

@@ -60,6 +60,29 @@ class ProfileTest extends TestCase
         Storage::disk('public')->assertExists($user->profile_photo_path);
     }
 
+    public function test_user_can_update_profile_without_photo(): void
+    {
+        $user = User::factory()->create([
+            'name' => 'Name Without Photo',
+            'username' => 'nophoto',
+            'email' => 'nophoto@example.com',
+            'profile_photo_path' => null,
+        ]);
+
+        $response = $this->actingAs($user)->put('/profile', [
+            'name' => 'Updated Name',
+            'username' => 'nophoto_updated',
+            'email' => 'nophoto_updated@example.com',
+        ]);
+
+        $response->assertRedirect();
+        $user->refresh();
+        $this->assertSame('Updated Name', $user->name);
+        $this->assertSame('nophoto_updated', $user->username);
+        $this->assertSame('nophoto_updated@example.com', $user->email);
+        $this->assertNull($user->profile_photo_path);
+    }
+
     public function test_profile_update_validation_fails_on_duplicate_username_or_email(): void
     {
         $existing = User::factory()->create([

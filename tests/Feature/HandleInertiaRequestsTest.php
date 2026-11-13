@@ -59,4 +59,23 @@ class HandleInertiaRequestsTest extends TestCase
         $this->assertSame('Operasi berhasil!', $props['flash']['success']());
         $this->assertSame('Ada kendala', $props['flash']['error']());
     }
+
+    public function test_shared_props_for_authenticated_user_without_photo(): void
+    {
+        $user = User::factory()->create([
+            'profile_photo_path' => null,
+        ]);
+
+        $middleware = new HandleInertiaRequests();
+        $request = Request::create('/dashboard/posts');
+        $request->setUserResolver(fn () => $user);
+        $request->setLaravelSession(app('session.store'));
+
+        $version = $middleware->version($request);
+        $this->assertTrue($version === null || is_string($version));
+
+        $props = $middleware->share($request);
+        $this->assertNotNull($props['auth']['user']);
+        $this->assertNull($props['auth']['user']['profile_photo_url']);
+    }
 }
