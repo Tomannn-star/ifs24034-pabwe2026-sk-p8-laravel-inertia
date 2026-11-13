@@ -54,8 +54,18 @@ class PostExcelServiceTest extends TestCase
             'published_at' => null,
         ]);
 
+        $rawPostWithStringCategory = (object) [
+            'title' => 'Artikel String Category',
+            'category' => 'String Non-Enum Category',
+            'user' => null,
+            'is_published' => false,
+            'published_at' => null,
+            'excerpt' => null,
+            'content' => 'Konten string kategori',
+        ];
+
         $service = app(PostExcelService::class);
-        $response = $service->export([$post1, $post2, $postWithoutUser], 'uji-export.xlsx');
+        $response = $service->export([$post1, $post2, $postWithoutUser, $rawPostWithStringCategory], 'uji-export.xlsx');
 
         $this->assertInstanceOf(StreamedResponse::class, $response);
         $this->assertSame('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type'));

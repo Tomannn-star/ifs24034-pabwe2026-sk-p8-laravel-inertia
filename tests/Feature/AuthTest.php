@@ -74,6 +74,22 @@ class AuthTest extends TestCase
         $response->assertRedirect('/dashboard/posts');
     }
 
+    public function test_users_can_authenticate_using_email_parameter_directly(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'direct-email@example.com',
+            'password' => Hash::make('secretpass123'),
+        ]);
+
+        $response = $this->post('/login', [
+            'email' => 'direct-email@example.com',
+            'password' => 'secretpass123',
+        ]);
+
+        $this->assertAuthenticatedAs($user);
+        $response->assertRedirect('/dashboard/posts');
+    }
+
     public function test_users_cannot_authenticate_with_invalid_password(): void
     {
         $user = User::factory()->create([

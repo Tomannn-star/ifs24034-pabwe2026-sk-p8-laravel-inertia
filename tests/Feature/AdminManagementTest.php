@@ -47,7 +47,10 @@ class AdminManagementTest extends TestCase
     public function test_admin_can_view_specific_user_posts(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
-        $author = User::factory()->create(['role' => 'member']);
+        $author = User::factory()->create([
+            'role' => 'member',
+            'profile_photo_path' => 'avatars/author.jpg',
+        ]);
 
         Post::factory()->create([
             'user_id' => $author->id,

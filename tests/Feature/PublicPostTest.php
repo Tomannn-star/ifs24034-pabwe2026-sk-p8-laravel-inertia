@@ -66,7 +66,9 @@ class PublicPostTest extends TestCase
 
     public function test_published_article_can_be_viewed_by_slug(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'profile_photo_path' => 'avatars/author.jpg',
+        ]);
 
         $post = Post::factory()->create([
             'user_id' => $user->id,
